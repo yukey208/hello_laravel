@@ -15,8 +15,8 @@ class SessionController extends Controller
     		'email' => 'required|email|max:255',
     		'password'=>'required'
     	]);
-    	// 验证登陆项
-    	if (Auth::attempt($credentials)) {
+    	// 验证登陆项,接受两个参数，用户信息和记住我
+    	if (Auth::attempt($credentials，$request->has('rember'))) {
     		session()->flash('success','欢迎回来！');
     		return redirect()->route('users.show',[Auth::user()]);
     	}else{
