@@ -8,8 +8,8 @@ class UserController extends Controller
 {
     
     //
-    public function create(){
-    	return view('users.create');
+    public function singup(){
+    	return view('users.singup');
     }
     public function show(User $user){
     	return view('users.show',compact('user'));
@@ -26,7 +26,10 @@ class UserController extends Controller
     		'password' => bcrypt($request->password),
 
     	]);
-    	session()->flash('注册成功','欢迎你入驻本企业微博。');
+        // 设置注册后自动登录
+        Auth::login($user);
+        
+    	session()->flash('success','注册成功，欢迎你入驻本站微博。');
     	return redirect()->route('users.show',[$user]);
     }
 }
